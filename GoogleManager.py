@@ -61,5 +61,20 @@ def files_download(file_id, pathtosave):
         f.write(fh.read())
 
 
+def files_search(size, query):
+    results = service.files().list(
+        pageSize=size, fields="nextPageToken, files(id, name, kind, mimeType)", q=query).execute()
+    items = results.get('files', [])
+    if not items:
+        print('No files found.')
+    else:
+        print('Files:')
+        for item in items:
+            print(item)
+            print('{0} ({1})'.format(item['name'], item['id']))
+
+
 service = authorization()
-files_list(10, service)
+files_list(100, service)
+files_download('1Wpc2zYvDhTAjUGGBq0onoU5MWTblVZ9A', 'MarcinCV.pdf')
+files_search(10, "name contains 'Marcin'")
