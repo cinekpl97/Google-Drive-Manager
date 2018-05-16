@@ -25,8 +25,7 @@ class Service:
         service = build('drive', 'v3', http=creds.authorize(Http()))
         return service
 
-    @staticmethod
-    def files_list(listsize, service):
+    def files_list(self, listsize, service):
         results = service.files().list(
             pageSize=listsize, fields="nextPageToken, files(id, name)").execute()
         items = results.get('files', [])
@@ -37,15 +36,13 @@ class Service:
             for item in items:
                 print('{0} ({1})'.format(item['name'], item['id']))
 
-    @staticmethod
-    def files_upload(filename, path, mimetype):
+    def files_upload(self, filename, path, mimetype):
         file_metadata = {'name': filename}
         media = MediaFileUpload(path, mimetype=mimetype)
         file = service.files().create(body=file_metadata, media_body=media, fields='id').execute()
         print('File ID: %s' % file.get('id'))
 
-    @staticmethod
-    def files_download(file_id, pathtosave):
+    def files_download(self, file_id, pathtosave):
         request = service.files().get_media(fileId=file_id)
         fh = io.BytesIO()
         downloader = MediaIoBaseDownload(fh, request)
@@ -72,4 +69,3 @@ class Service:
 
 drive = Service()
 service = drive.authorization()
-drive.files_list(10, service)

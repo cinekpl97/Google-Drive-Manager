@@ -1,8 +1,15 @@
 from GoogleManager import Service
 from Menu import Menu
+import os
 
-menu = Menu()
-menu.printoptions()
-drive = Service()
-service = drive.authorization()
-drive.files_list(10, service)
+
+def main():
+    drive = Service()
+    service = drive.authorization()
+    menu = Menu()
+    menu.printoptions()
+    menu.userchoice(drive, service)
+
+
+if __name__ == '__main__':
+    main()
