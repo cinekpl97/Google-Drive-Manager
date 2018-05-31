@@ -1,4 +1,8 @@
 from GoogleManager import Service
+from tkinter import *
+from tkinter import filedialog
+import ntpath
+import mimetypes
 
 
 class Menu:
@@ -22,7 +26,14 @@ class Menu:
                 amountoffiles = input("> ")
                 drive.files_list(amountoffiles, service)
             elif choice == '2':
-                drive.files_upload('Screenshot_1.png', 'Screenshot_1.png', 'image/png')
+                window = Tk()
+                window.filename = filedialog.askopenfilename(initialdir='/', title="Select document",
+                                                             filetypes=(("All Files", "*.*"), ("Text Files", "*.txt")))
+                path = window.filename
+                filename = ntpath.basename(path)
+                mime = mimetypes.guess_type(path)
+                mimetype = mime[0]
+                drive.files_upload(filename, path, mimetype)
             elif choice == '3':
                 drive.files_download('16iI1aOo3jv_H2mr8tzGt9OjDK4nJE-iZ', 'photo.jpg')
             choice = input("> ")
