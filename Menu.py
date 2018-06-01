@@ -36,4 +36,6 @@ class Menu:
                 drive.files_upload(filename, path, mimetype)
             elif choice == '3':
                 drive.files_download('16iI1aOo3jv_H2mr8tzGt9OjDK4nJE-iZ', 'photo.jpg')
+            elif choice == '4':
+                drive.files_search(10, "name contains 'marcin'")
             choice = input("> ")

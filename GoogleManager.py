@@ -27,14 +27,14 @@ class Service:
 
     def files_list(self, listsize, service):
         results = service.files().list(
-            pageSize=listsize, fields="nextPageToken, files(id, name)").execute()
+            pageSize=listsize, fields="nextPageToken, files(mimeType, size, name)").execute()
         items = results.get('files', [])
         if not items:
             print('No files found.')
         else:
             print('Files:')
             for item in items:
-                print('{0} ({1})'.format(item['name'], item['id']))
+                print('{0} ({1}) ({2})'.format(item['name'], item['mimeType'], item['size']))
 
     def files_upload(self, filename, path, mimetype):
 
