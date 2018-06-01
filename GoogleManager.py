@@ -27,14 +27,17 @@ class Service:
 
     def files_list(self, listsize, service):
         results = service.files().list(
-            pageSize=listsize, fields="nextPageToken, files(mimeType, size, name)").execute()
+            pageSize=listsize, fields="nextPageToken, files(mimeType, size, name, id)").execute()
         items = results.get('files', [])
         if not items:
             print('No files found.')
         else:
             print('Files:')
+            i = 0
             for item in items:
-                print('{0} ({1}) ({2})'.format(item['name'], item['mimeType'], item['size']))
+                print('{0} {1} ({2})'.format(i, item['name'], item['mimeType']))
+                i = i+1
+        return items
 
     def files_upload(self, filename, path, mimetype):
 
@@ -56,16 +59,20 @@ class Service:
             f.write(fh.read())
 
     @staticmethod
-    def files_search(size, query):
+    def files_search(size, phrase):
+        query = "name contains '{0}'".format(phrase)
         results = service.files().list(
-            pageSize=size, fields="nextPageToken, files(id, name, kind, mimeType)", q=query).execute()
+            pageSize=size, fields="nextPageToken, files(id, name, mimeType)", q=query).execute()
         items = results.get('files', [])
         if not items:
             print('No files found.')
         else:
             print('Files:')
+            i = 0
             for item in items:
-                print(item)
+                print('{0} ({1})'.format(item['name'], item['mimeType']))
+                i=i+1
+        return items
 
 
 drive = Service()
