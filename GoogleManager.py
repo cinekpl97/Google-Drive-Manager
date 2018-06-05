@@ -9,7 +9,7 @@ from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 from googleapiclient.http import MediaFileUpload, MediaIoBaseDownload
-import os, io
+import io
 
 
 class Service:
@@ -36,7 +36,7 @@ class Service:
             i = 0
             for item in items:
                 print('{0} {1} ({2})'.format(i, item['name'], item['mimeType']))
-                i = i+1
+                i = i + 1
         return items
 
     def files_upload(self, filename, path, mimetype):
@@ -70,8 +70,8 @@ class Service:
             print('Files:')
             i = 0
             for item in items:
-                print('{0} ({1})'.format(item['name'], item['mimeType']))
-                i=i+1
+                print('{0} {1} ({2})'.format(i, item['name'], item['mimeType']))
+                i = i + 1
         return items
 
 

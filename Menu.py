@@ -39,9 +39,13 @@ class Menu:
             elif choice == '3':
                 print("From the last chosen by you list choose the file number you want to download")
                 file_number = int(input("> "))
-                chosenid = itemlist[file_number]['id']
-                chosenname = itemlist[file_number]['name']
-                drive.files_download(chosenid, chosenname)
+                googlefiletype = "vnd.google"
+                if googlefiletype in itemlist[file_number]['mimeType']:
+                    print("You can't download Google file, sir")
+                else:
+                    chosenid = itemlist[file_number]['id']
+                    chosenname = itemlist[file_number]['name']
+                    drive.files_download(chosenid, chosenname)
             elif choice == '4':
                 print("choose by what phrase do you want to find the file")
                 phrase = input("> ")
