@@ -1,14 +1,13 @@
 from GoogleManager import Service
 from Menu import Menu
-import os
 
 
 def main():
-    drive = Service()
-    service = drive.authorization()
+    drive_functions = Service()
+    service = drive_functions.authorization()
     menu = Menu()
     menu.printoptions()
-    menu.userchoice(drive, service)
+    menu.userchoice(drive_functions, service)
 
 
 if __name__ == '__main__':
